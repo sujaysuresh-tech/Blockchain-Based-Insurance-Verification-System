@@ -193,22 +193,6 @@ python manage.py runserver
 4. **Admin oversight** — administrators manage users, roles, and monitor certificate/blockchain activity through the admin dashboard.
 
 ---
-
-## Results
-
-Based on testing carried out during development:
-
-| Metric | Result |
-|---|---|
-| Certificate validation accuracy | ~98.5% |
-| Average verification response time | ~2.3 seconds |
-| Legitimate certificate verification time | 3–5 seconds |
-| Manual processing reduction | ~60% |
-
-Testing was conducted in iterative cycles covering unit testing (per module), integration testing (system-wide), and security testing (blockchain immutability and data integrity checks).
-
----
-
 ## Limitations & Future Work
 
 **Current limitations:**
@@ -224,6 +208,20 @@ Testing was conducted in iterative cycles covering unit testing (per module), in
 - Migrate to a more scalable network (e.g. Ethereum L2, Hyperledger Fabric)
 - Incorporate machine learning for anomaly/fraud pattern detection alongside hash verification
 - Build a mobile application interface
+
+---
+## Results
+
+Based on testing carried out during development:
+
+| Metric | Result |
+|---|---|
+| Certificate validation accuracy | ~98.5% |
+| Average verification response time | ~2.3 seconds |
+| Legitimate certificate verification time | 3–5 seconds |
+| Manual processing reduction | ~60% |
+
+Testing was conducted in iterative cycles covering unit testing (per module), integration testing (system-wide), and security testing (blockchain immutability and data integrity checks).
 
 ---
 
