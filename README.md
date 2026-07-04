@@ -1,14 +1,10 @@
 <div align="center">
 
-# 🔷 Blockchain-Based Insurance Certificate Verification System
+# 🔷 Blockchain-Based Insurance Verification System
 
 ### Tamper-Proof Insurance Fraud Detection using Cryptographic Hashing + Blockchain
+<img src="https://skillicons.dev/icons?i=python,django,solidity,&theme=dark" />
 
-[![Python](https://img.shields.io/badge/Python%203.9-6D28D9?style=flat-square&logo=python&logoColor=white)](#)
-[![Django](https://img.shields.io/badge/Django%204.0-7C3AED?style=flat-square&logo=django&logoColor=white)](#)
-[![Solidity](https://img.shields.io/badge/Solidity%20Smart%20Contracts-8B5CF6?style=flat-square&logo=solidity&logoColor=white)](#)
-[![Ganache](https://img.shields.io/badge/Ganache%20Local%20Blockchain-A78BFA?style=flat-square&logo=ethereum&logoColor=white)](#)
-[![Web3.py](https://img.shields.io/badge/Web3.py%20Blockchain%20Integration-A78BFA?style=flat-square)](#)
 
 [Overview](#overview) • [Problem Statement](#problem-statement) • [System Architecture](#system-architecture) • [Modules](#modules) • [Tech Stack](#tech-stack) • [Installation](#installation) • [Usage](#usage) • [Results](#results) 
 
