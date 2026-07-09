@@ -227,6 +227,6 @@ Based on testing carried out during development:
 
 <div align="center">
 
-Built with 💜 by [Sujay Suresh](https://github.com/sujaysuresh-tech)
+Built by [Sujay Suresh](https://github.com/sujaysuresh-tech)
 
 </div>
