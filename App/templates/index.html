@@ -1,0 +1,1482 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body class="body" id="style-2">
+
+    <!-- Page loader -->
+    <div id="page-loader">
+        <div class="loader-inner">
+            <div class="loader-shield">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="loader-bars">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <p class="loader-text">Insurance Fraud Detection</p>
+        </div>
+    </div>
+    <div class="login-wrapper">
+        <div class="main" style="width: 380px;">
+            <h2 style="position: absolute;top: 20px;right: 20px;color: black;z-index: 100;font-size: 15px;" onclick="closeLogin()"><i class="fa-solid fa-x"></i></h2>
+            <img src="{% static 'images/66841-medicine-capsule.gif' %}" alt="" style="width: 80px;transform: rotate(90deg); margin-bottom: 28px;">
+            <h1 style="color: black;">Signin</h1>
+            <p>Login into your account now</p>
+    
+            <div class="inputs">
+                <input type="text" placeholder="username" class="userName" style="margin-bottom: 10px;"><br>
+                <input type="password" placeholder="password" class="password"><br>
+            </div>
+            <p style="display: none;justify-content: center;align-items: center;width: 100%;margin-top: 25px;opacity: 1;margin-bottom: 10px;" class="error">Invalid login credentials</p>
+
+            <button onclick="sendData()">Login into my account</button>
+        </div>
+    </div>
+
+    <div class="signup-wrapper">
+        <div class="main" style="width: 380px;">
+            <h2 style="position: absolute;top: 20px;right: 20px;color: black;font-size: 15px;" onclick="closeSignup()"><i class="fa-solid fa-x"></i></ion-icon></h2>
+            <img src="{% static 'images/66841-medicine-capsule.gif' %}" alt="" style="width: 80px;transform: rotate(90deg); margin-bottom: 28px;">
+            <h1  style="color: black;">Signup</h1>
+            <p>Create your new account now</p>
+    
+            <div class="inputs inps">
+                <input type="text" placeholder="username" class="username1 username" oninput="checkUsername()"><br>
+                <input type="number" placeholder="phone number" class="phone">
+                <input type="email" placeholder="email address" class="email1"><br>
+                <input type="text" placeholder="Address" class="address"><br>
+
+                <input type="password" placeholder="password" class="password1"><br>
+            </div>
+            <p style="margin-top: -7px;color: rgb(9, 9, 9);opacity: 0.7;width: 100%;text-align: center;display: none;font-size: 15px;justify-content: center;align-items: center;margin-bottom: 15px;" class="err2">Username already exists</p>
+
+            <button onclick="checkSignup()">Create a new account account</button>
+        </div>
+    </div>
+
+    <div class="policy">
+        <form class="main" style="width: 360px;" action="{% url 'createPolicy' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 style="position: absolute;top: 20px;right: 20px;color: black;font-size: 15px;" onclick="closePolicy()"><i class="fa-solid fa-x"></i></ion-icon></h2>
+            <img src="{% static 'images/66841-medicine-capsule.gif' %}" alt="" style="width: 80px;transform: rotate(90deg); margin-bottom: 28px;">
+            <h1  style="color: black;">Policy</h1>
+            <p>Create your new policy now</p>
+            <img src="{% static 'images/about-2.jpg' %}" alt="" style="width: 100%;height: 190px;object-fit: cover;" class="profile-pic">
+            <input type="file" name="image" id="" required style="margin-top: 15px;margin-bottom: 15px;width: 90%;" onchange="setProfilePic(this)">
+            <div class="inputs inps">
+                <input type="text" placeholder="Policy name" name="policy_name" required><br>
+                <input type="text" placeholder="Policy description" name="policy_desc" required>
+                <div style="display: flex;gap: 10px;">
+
+                    <select name="policy_type" required>
+                        <option value="">-- Select Policy Type --</option>
+                        <option value="Auto">Auto</option>
+                        <option value="Home">Home</option>
+                        <option value="Health">Health</option>
+                        <option value="Life">Life</option>
+                    </select>
+                    <input type="number" name="policy_amount" placeholder="Policy Amount" required min="500">
+                </div>
+                <!-- <input type="text" placeholder="Address" class="address"><br> -->
+
+                <!-- <input type="password" placeholder="password" class="password1"><br> -->
+            </div>
+            <p style="margin-top: -7px;color: rgb(9, 9, 9);opacity: 0.7;width: 100%;text-align: center;display: none;font-size: 15px;justify-content: center;align-items: center;margin-bottom: 15px;" class="err2">Username already exists</p>
+
+            <button type="submit">Create policy</button>
+        </form>
+    </div>
+
+    <div class="upload-bill">
+
+        <form method="POST" action="{% url 'uploadBill' %}">
+            {% csrf_token %}
+            <h4 onclick = "closeUpload()" style="position: absolute;top: 15px;right: 15px;width: 30px;height: 30px;border-radius: 100px;background-color: rgb(188, 43, 43);color: white;display: flex;justify-content: center;align-items: center;cursor: pointer;"><i class="fa-solid fa-xmark"></i></h4>
+            <h3 style="margin-top: 25px;">Upload Medical Bill</h3>
+            <p>Enter the details below</p>
+
+            <h2>Patient Information</h2>
+            <div class="group">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+                <input type="text" id="address" name="address" placeholder="Address" required>
+            </div>
+            <input type="text" id="username" name="username" placeholder="Username" required oninput="checkUsernameBill(this)">
+            <h4 class="err3" style="display: none;margin-top: 15px;margin-bottom: 15px;font-weight: 600;">Username does not exist</h4>
+            <div class="group">
+                <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
+                <input type="text" id="ins-policy" name="ins-policy" placeholder="Insurance Policy Number" required oninput="ipn(this)">
+            </div>
+            <h4 class="err4" style="display: none;margin-top: 15px;margin-bottom: 15px;font-weight: 600;">IPN number already exists</h4>
+
+            <h2>Provider Information</h2>
+            <div class="group">
+                <input type="text" id="prov-name" name="prov-name" placeholder="Name" required oninput="insname(this)">
+                <input type="text" id="prov-address" name="prov-address" placeholder="Address" required>
+            </div>
+            <h4 class="err5" style="display: none;margin-top: 15px;margin-bottom: 15px;font-weight: 600;">Username does not exist</h4>
+
+            <input type="text" id="prov-npi" name="prov-npi" placeholder="NPI Number" required>
+
+            <h2>Treatment Details</h2>
+            <input type="date" id="date-of-service" name="date-of-service" placeholder="Date of Service" required>
+            <input type="text" id="service-desc" name="service-desc" placeholder="Service Description" required>
+            <div class="group">
+                <input type="text" id="service-code" name="service-code" placeholder="Procedure Code" required>
+                <input type="text" id="diagnosis-code" name="diagnosis-code" placeholder="Diagnosis Code" required>
+            </div>
+            <input type="text" id="charge" name="charge" placeholder="Charge" required>
+
+            <h2>Payment</h2>
+            <input type="number" id="total-due" name="total-due" placeholder="Total Amount Due" required min="1000">
+            <!-- <input type="text" id="ins-payment" name="ins-payment" placeholder="Insurance Payment"><br> -->
+            <!-- <input type="text" id="patient-responsibility" name="patient-responsibility" placeholder="Patient Responsibility"><br> -->
+            
+            <input type="submit" value="Submit" style="background-color: #1d4ed8;color: white;width: 94.5%;" class="submit">
+        </form>
+
+    </div>
+
+    <div class="view-bill">
+
+        <form method="POST" action="{% url 'uploadBillInsurance' %}">
+            {% csrf_token %}
+            <h4 onclick = "closeView()" style="position: absolute;top: 15px;right: 15px;width: 30px;height: 30px;border-radius: 100px;background-color: rgb(188, 43, 43);color: white;display: flex;justify-content: center;align-items: center;cursor: pointer;"><i class="fa-solid fa-xmark"></i></h4>
+            <h3 style="margin-top: 25px;" >Medical Bill Details</h3>
+            <p class="det">Enter the details below</p>
+
+            <h2>Patient Information</h2>
+            <div class="group">
+                <input type="text" id="name" name="name" placeholder="Name" class="name">
+                <input type="text" id="ins-policy" name="ins-policy" placeholder="Insurance Policy Number"  class="ipn">
+            </div>
+            <input type="text" id="address" name="address" placeholder="Address"  class="ua">
+            <input type="text" id="dob" name="dob" placeholder="Date of Birth"  class="ud">
+
+            <h2>Insurance Provider Information</h2>
+            <div class="group">
+                <input type="text" id="prov-name" name="prov-name" placeholder="Name"  class="pn">
+                <input type="text" id="prov-address" name="prov-address" placeholder="Address"  class="pa">
+            </div>
+            <input type="text" id="prov-npi" name="prov-npi" placeholder="NPI Number"  class="npi">
+
+            <h2>Treatment Details</h2>
+            <input type="text" id="date-of-service" name="date-of-service" placeholder="Date of Service"  class="td">
+            <input type="text" id="service-desc" name="service-desc" placeholder="Service Description"  class="tdesc">
+            <div class="group">
+                <input type="text" id="service-code" name="service-code" placeholder="Procedure Code"  class="pd">
+                <input type="text" id="diagnosis-code" name="diagnosis-code" placeholder="Diagnosis Code"  class="dc">
+            </div>
+            <input type="text" id="charge" name="charge" placeholder="Charge"  class="ch">
+
+            <h2>Payment</h2>
+            <input type="number" id="total-due" name="total-due" placeholder="Total Amount Due" min="1000"  class="due">
+            {% if profile.is_an_insurance_company %}
+            <input type="number" id="ins-payment" name="insAmt" placeholder="Insurance Payment" required min="0" class="insAmtInpt" style="pointer-events: all;"><br>
+            {% endif %}
+            <input type="text" id="ins-payment" name="iinn" placeholder="Insurance Payment" min="50000" class="insAmtDisp" style="display: flex;margin-top: -10px;"><br>
+            {% if not profile.is_an_insurance_company %}
+            <input type="button" value="Claim Insurance" style="background-color: #1d4ed8;color: white;width: 94.5%;border: none;pointer-events: all;cursor: pointer;" class="claim" onclick="claim()">
+            {% endif %}
+            <!-- <input type="text" id="patient-responsibility" name="patient-responsibility" placeholder="Patient Responsibility"><br> -->
+            <input type="hidden" name="pk" class="pk">
+            <button type="button" onclick="downloadBill()" style="width:90%;margin:10px auto;padding:11px;background:#f1f5f9;color:#334155;border:1.5px solid #e2e8f0;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;"><i class="fa-solid fa-download" style="color:#1d4ed8;"></i> Download as Image</button>
+            {% if profile.is_an_insurance_company %}
+            <input type="submit" value="Approve Medical Bill" style="background-color: #1d4ed8;color: white;width: 94.5%;border: none;pointer-events: all;cursor: pointer;" class="approve">
+            {% endif %}
+        </form>
+
+    </div>
+
+    <!-- ========== FRAUD CHECK POPUP ========== -->
+    <div id="fraudWrapper" style="display:none;position:fixed;inset:0;z-index:9000;background:rgba(15,23,42,.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);justify-content:center;align-items:center;">
+        <div style="background:white;border-radius:28px;padding:36px 32px 28px;width:480px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:popup .35s cubic-bezier(.34,1.56,.64,1);">
+            <h4 onclick="closeFraudCheck()" style="position:absolute;top:15px;right:15px;width:30px;height:30px;border-radius:100px;background:#ef4444;color:white;display:flex;justify-content:center;align-items:center;cursor:pointer;border:none;font-size:13px;"><i class="fa-solid fa-xmark"></i></h4>
+            <div style="text-align:center;margin-bottom:24px;">
+                <div style="width:64px;height:64px;background:linear-gradient(135deg,rgba(29,78,216,.12),rgba(6,182,212,.12));border-radius:50%;display:flex;justify-content:center;align-items:center;margin:0 auto 14px;font-size:26px;color:#1d4ed8;"><i class="fa-solid fa-shield-virus"></i></div>
+                <h3 style="font-size:20px;font-weight:800;color:#0f172a;margin:0 0 6px;">Fraud Detection</h3>
+                <p style="color:#64748b;font-size:13px;margin:0;">Enter the bill details to verify its authenticity against the blockchain record</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px;">
+                <div>
+                    <label style="display:block;font-size:12px;font-weight:700;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;"><i class="fa-solid fa-id-card" style="color:#1d4ed8;margin-right:6px;"></i>Insurance Policy No. (IPN)</label>
+                    <input type="text" id="fraudIpn" placeholder="e.g. IPN037" style="width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:14px;color:#0f172a;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='#1d4ed8'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div>
+                    <label style="display:block;font-size:12px;font-weight:700;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;"><i class="fa-solid fa-indian-rupee-sign" style="color:#1d4ed8;margin-right:6px;"></i>Charge Amount</label>
+                    <input type="text" id="fraudCharge" placeholder="e.g. 2500" style="width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:14px;color:#0f172a;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='#1d4ed8'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div>
+                    <label style="display:block;font-size:12px;font-weight:700;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px;"><i class="fa-solid fa-file-invoice-dollar" style="color:#1d4ed8;margin-right:6px;"></i>Total Due</label>
+                    <input type="text" id="fraudTotalDue" placeholder="e.g. 2500" style="width:100%;padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:14px;color:#0f172a;outline:none;box-sizing:border-box;transition:border-color .2s;" onfocus="this.style.borderColor='#1d4ed8'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+            </div>
+            <button onclick="submitFraudCheck()" id="fraudSubmitBtn" style="width:100%;padding:13px;background:linear-gradient(135deg,#1d4ed8,#06b6d4);color:white;border:none;border-radius:50px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(29,78,216,.3);display:flex;justify-content:center;align-items:center;gap:8px;">
+                <i class="fa-solid fa-magnifying-glass-chart"></i> Verify Bill
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== FRAUD RESULT OVERLAY ========== -->
+    <div id="fraudResultOverlay" style="display:none;position:fixed;inset:0;z-index:99999;justify-content:center;align-items:center;background:rgba(15,23,42,.8);backdrop-filter:blur(12px);">
+        <div style="background:white;border-radius:28px;padding:48px 40px;text-align:center;max-width:600px;width:92%;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.35);animation:popup .4s cubic-bezier(.34,1.56,.64,1);">
+            <div id="fraudResultIcon" style="font-size:68px;margin-bottom:16px;"></div>
+            <h1 id="fraudResultTitle" style="font-size:24px;font-weight:900;margin-bottom:10px;letter-spacing:.5px;"></h1>
+            <p id="fraudResultMsg" style="font-size:14px;color:#64748b;line-height:1.7;margin:0;"></p>
+            <button onclick="closeFraudResult()" style="margin-top:28px;padding:12px 36px;border:none;border-radius:50px;font-size:14px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#1d4ed8,#06b6d4);color:white;box-shadow:0 4px 16px rgba(29,78,216,.3);">Close</button>
+        </div>
+    </div>
+
+    <div class="bills" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background-color: rgba(255, 255, 255, 0.9);display: none;justify-content: center;align-items: center;flex-wrap: wrap;gap: 25px;z-index: 10000;backdrop-filter: blur(8px);flex-direction: column;overflow-y: scroll;">
+        <h4 onclick = "closeBill()" style="position: absolute;top: 15px;right: 15px;width: 30px;height: 30px;border-radius: 100px;background-color: rgb(188, 43, 43);color: white;display: flex;justify-content: center;align-items: center;cursor: pointer;z-index: 1500;"><i class="fa-solid fa-xmark"></i></h4>
+
+        <h1>Your Bills</h1>
+        <p style="margin-top: -10px;">Below are your bills ordered by date</p>
+        <img src="{% static 'images/pattern.png' %}" alt="" style="position: fixed;width: 100%;top: 0;left: 0;height: 100%;object-fit: cover;opacity: 0.1;">
+        
+        {% for bill in bills %}
+        <div class="bill" style="display: flex;justify-content: center;align-items: center;gap: 25px;padding: 10px 35px 10px 35px;border: 2px solid rgb(225, 225, 225);border-radius: 100px;background-color: white;position: relative;z-index: 10;">
+            
+
+                <h1 style="width: 30px;height: 30px;background-color: #1d4ed8;color: white;border-radius: 100px;display: flex;justify-content: center;align-items: center;font-weight: 600;position: relative;z-index: 1;font-size: 17px;">{{forloop.counter}}</h1>
+                <h3 style="font-weight: 600;">{{bill.ipn}}</h3>
+                <form action="{% url 'getBill' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="bill" value = "{{bill.ipn}}" class="billVal">
+                    <button style="position: relative;z-index: 1;margin-top: 5px;padding: 8px;background-color: rgb(31, 150, 79);color: white;border-radius: 5px;border: none;cursor: pointer;" type="button" onclick="search2(this.parentNode)">View Bill</button>
+                </form>
+
+        </div>
+        
+        {% endfor %}
+    </div>
+
+    <div class="hospitals" style="width: 100%;height: 100%;position: fixed;top: 0;left: 0;background-color: rgba(255, 255, 255, 0.2);backdrop-filter: blur(8px);z-index: 1000;overflow-y: scroll;display: none;">
+        <h4 style="position: absolute;top: 0;right: 0;background-color: rgb(52, 52, 52);color: white;width: 35px;height: 35px;display: flex;justify-content: center;align-items: center;" onclick="closeHospitals()"><i class="fa-solid fa-xmark"></i></h4>
+
+        <center>
+
+            <!-- <h3>BROWSE POLICIES</h3> -->
+            <h1 id="head" style="font-weight: 500;color: rgb(39, 39, 39);font-size: 25px;text-transform: uppercase;margin-top: 50px;">Hospitals</h1>
+            <p style="text-align: center;">Below are the list of hospitals</p>
+        
+        </center>
+                <div class="" style="display: flex;justify-content: center;align-items: center;width: 100%;gap: 30px;margin-top: 40px;flex-wrap: wrap;padding-bottom: 50px;">
+                    {% for hospital in hospitals %}
+                    <div class="card" style="width: 340px;padding: 0;background-color: white;border-radius: 12px;border: 1.5px solid rgba(229, 231, 235, 1);box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);overflow: hidden;cursor: pointer;" onmouseover="this.style.transform = 'translateY(-12px)';this.style.boxShadow = '0 20px 60px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.08)';this.style.borderColor = 'rgba(29, 78, 216, 0.25)';" onmouseout="this.style.transform = 'translateY(0)';this.style.boxShadow = '0 4px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04)';this.style.borderColor = 'rgba(229, 231, 235, 1)';">
+                        <img src="{{hospital.image.url}}" alt="" style="width:100%;height: 210px;object-fit: cover;display: block;">
+                        <div style="padding: 24px 20px 20px 20px;">
+                            <h3 style="margin: 0 0 8px 0;color: #1a1a1a;font-weight: 700;font-size: 18px;line-height: 1.4;">{{hospital.hospital_name}}</h3>
+                            <div style="display: flex;align-items: center;gap: 8px;margin-bottom: 12px;color: #4b5563;font-size: 14px;font-weight: 500;">
+                                <i class="fa-solid fa-phone" style="color: #1e4e88;"></i>
+                                {{hospital.hospital_phone_number}}
+                            </div>
+                            <div style="display: flex;align-items: flex-start;gap: 8px;color: #6b7280;font-size: 13px;line-height: 1.5;font-weight: 500;">
+                                <i class="fa-solid fa-location-dot" style="color: #1e4e88;margin-top: 2px;flex-shrink: 0;"></i>
+                                <span>{{hospital.hospital_address}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+    </div>
+
+    <div class="container">
+            <div class="nav-wrapper">
+                <div class="nav1">
+                    <img src="{% static 'images/logo.png' %}" alt="">
+                    {% if request.user.is_authenticated %}
+                    <input type="search" placeholder="search bill here" class="search" style="font-weight: 600;">
+                    <h3 style="cursor: pointer;" onclick="search()"><i class="fa-solid fa-arrow-right"></i></h3>
+                    {% else %}
+                    <input type="search" placeholder="search bill here" class="search" style="font-weight: 600;opacity:0;pointer-events:none">
+                    <h3 style="cursor: pointer;opacity:0;pointer-events:none" onclick="search()"><i class="fa-solid fa-arrow-right"></i></h3>
+                    {% endif %}
+                </div>
+                <div class="nav2">
+                    <h3>Home</h3>
+                    <h3 onclick="scrollAbout()">About</h3>
+                    <a href="{% url 'contact' %}" style="text-decoration: none;color: #000;"><h3 onclick="scrollAbout()">Contact us</h3></a>
+                    {% if request.user.is_authenticated %}
+                    <h3 onclick="showHospitals()">Hospitals</h3>
+                    <a href="{% url 'policies' %}" style="text-decoration: none;color: black;"><h3>Policies</h3></a>
+                    {% if not profile.is_an_insurance_company and not profile.is_a_hospital %}
+                    <h3 onclick="showBills()">My bills</h3>
+                    {% endif %}
+                    {% if not profile.is_a_hospital %}
+                    <h3 onclick="showNotifications()">Notifications</h3>
+                    {% endif %}
+
+                        <div class="notifications" style="position: absolute;top: 120px;width: 450px;background-color: white;padding: 10px;display: none;">
+                            <h4 style="position: absolute;top: 0;right: 0;background-color: rgb(52, 52, 52);color: white;width: 25px;height: 25px;cursor: pointer;" onclick="closeNotifications()"><i class="fa-solid fa-xmark"></i></h4>
+                            {% for notification in notifications %}
+                            <div style="display: flex;gap: 8px;justify-content: center;align-items: flex-start;margin-top: 25px;cursor:pointer" onclick="viewBill('{{notification.ipn}}')">
+
+                                <img src="{% static 'images/09 (1).jpg' %}" alt="" style="width: 50px;height: 50px;border-radius: 100px;object-fit: cover;margin-left: 15px;">
+                                <p style="font-weight: 600;font-size: 14px;line-height: 25px;">{{notification.message}}</p>
+                            </div>
+                            
+                            {% endfor %}
+
+                        </div>
+                   
+                    {% endif %}
+                    <!-- <h3>Blog</h3> -->
+                    {% if profile.is_an_insurance_company %}
+                    <h3 onclick="showCreatePolicy()">Create Policy</h3>
+                    {% endif %}
+                    {% if profile.is_a_hospital and request.user.is_authenticated %}
+                    <h3 onclick="showUpload()">Upload Bill</h3>
+                    {% endif %}
+                </div>
+                <div class="nav3">
+                    {% if not request.user.is_authenticated %}
+                    <h3 style="font-weight: 300;font-size: 14px;"><i class="fa-solid fa-phone" style="color: #1d4ed8;"></i> +(111)65 458 856</h3>
+                    
+                    
+                    <h2 style="border-radius: 5px;" onclick="showLogin()"><i class="fa-solid fa-right-to-bracket"></i> Login</h2>
+                    {% else %}
+                    
+                    <a href="{% url 'logout' %}" style="text-decoration: none;"><h2 style="border-radius: 5px;"><i class="fa-solid fa-right-to-bracket"></i> Logout</h2></a>
+
+                    {% endif %}
+                    <!-- <h1><i class="fa-solid fa-bars-staggered"></i></h1> -->
+                </div>
+            </div>
+            <div class="banner-wrapper">
+            <div class="banner">
+                {% if not profile.is_an_insurance_company %}
+                        <h1 style="margin-top: 0;">Take The Worry Out Of</h1>
+                        <h1><span>Life With</span> <span style="color:#67e8f9;">Insurance</span></h1>
+                        <h1>Protection</h1>
+                {% else %}
+                <h1 style="margin-top: 0;">Welcome Back! </h1>
+                
+                <h1><span>Manage Your Policies</span> </h1>
+                <!-- <h1></h1> -->
+                {% endif %}
+                        <p style="font-size: 16px;line-height: 1.85;">Protecting what matters most — our AI-powered fraud detection platform helps insurers identify suspicious claims instantly, saving millions and keeping your policies fair for everyone.</p>
+                        <img src="{% static 'images/shape-5.png' %}" alt="" style="position: absolute;width: 250px;top: 50px;left: 0px;z-index: 0;opacity: 0.5;">
+                        <img src="{% static 'images/shape-3.png' %}" alt="" style="position: absolute;bottom: -50px;left: 600px;width: 80px;">
+                        <img src="{% static 'images/shape-4.png' %}" alt="" style="position: absolute;bottom: 60px;left: 50px;width: 50px;">
+                        {% if not request.user.is_authenticated %}
+                        <button id="btn1" style="cursor: pointer;" onclick="showLogin()"> > Login</button>
+                        <button id="btn2" style="border: 1px solid rgb(217, 217, 217);background-color: transparent;cursor: pointer;" onclick="showSignup()"><i class="fa-solid fa-paper-plane" style="color: #1d4ed8;"></i>&nbsp Signup</button>
+                        {% else %}
+                        <a href="{% url 'logout' %}"><button id="btn1" style="cursor: pointer;"> > Logout</button></a>
+                        {% if profile.is_an_insurance_company %}
+                        <button id="btn2" onclick="showFraudCheck()" style="cursor:pointer;"><i class="fa-solid fa-shield-virus"></i>&nbsp; Check Fraud</button>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+            <img src="{% static 'images/banner-img.png' %}" alt="">
+            </div>
+            <div class="card-wrapper">
+                <h3>OUR FEATURES</h3>
+                <h1 id="head" style="font-weight: 700;">Better Digital Insurance Begins Right Here</h1>
+                <div class="cardss">
+                    <div class="cards">
+                        <img src="{% static 'images/money-back.png' %}" id="img1" alt="">
+                        <h1 style="font-size: 20px;">Money Back Guarantee</h1>
+                        <p style="font-size: 14px;line-height: 1.7;">Get a full refund if a fraud claim slips through our system. Your trust is our top priority.</p>
+                    </div>
+                    <div class="cards">
+                        <img src="{% static 'images/claim.png' %}" id="img2" alt="">
+                        <h1 style="font-size: 20px;">All Claims At Anytime</h1>
+                        <p style="font-size: 14px;line-height: 1.7;">Submit and track your claims 24/7 through our secure digital platform — no paperwork needed.</p>
+                    </div>
+                    <div class="cards">
+                        <img src="{% static 'images/insurance-policy.png' %}" id="img3" alt="">
+                        <h1 style="font-size: 20px;">Digital Insurance Policy</h1>
+                        <p style="font-size: 14px;line-height: 1.7;">Manage all your policies in one place with blockchain-verified records that are tamper-proof and transparent.</p>
+                    </div>
+                    <div class="cards">
+                        <img src="{% static 'images/mobile-payment.png' %}" id="img4" alt="">
+                        <h1 style="font-size: 20px;">Direct Payment App</h1>
+                        <p style="font-size: 14px;line-height: 1.7;">Receive approved claim payouts instantly to your bank account — no delays, no hidden fees.</p>
+                    </div>
+                </div>
+            </div>    
+            <div class="first-section abt">
+                <div class="first-section1">
+                    <div class="heading">
+                        <h3>ABOUT INCEP</h3>
+                        <h1 style="font-weight:800;font-size: 38px;">Life Insurance That Creates Wealth For Everyone</h1>
+                    </div>
+                    <div class="slips">
+                        <div class="slip">
+                            <div class="group">
+                                <div class="circle"></div>
+                                <img src="{% static 'images/insurance.png' %}" alt="">
+                            </div> 
+                            <div class="slip1">
+                                <h2 id="group1">Trusted By Thousands</h2>
+                                <p>Over 10,000 policyholders trust our platform to detect and prevent fraudulent claims automatically.</p>
+                            </div>
+                        </div>
+                        <div class="slip">
+                            <div class="group">
+                                <div class="circle"></div>
+                                <img src="{% static 'images/life-insurance.png' %}" alt="">
+                            </div> 
+                            <div class="slip1">
+                                <h2 id="group2">Set For Life</h2>
+                                <p>Comprehensive life and health insurance policies secured with smart-contract blockchain technology.</p>
+                            </div>
+                        </div>
+                        <div class="slip">
+                            <div class="group">
+                                <div class="circle"></div>
+                                <img src="{% static 'images/medical-insurance.png' %}" alt="">
+                            </div> 
+                            <div class="slip1">
+                                <h2 id="group3">Protective Insurance</h2>
+                                <p>Our AI engine scans every submitted bill in real-time, flagging anomalies before a single rupee is paid out.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="imagee">
+                    <div class="fs-image">
+                        <img src="{% static 'images/about-1.jpg' %}"  alt="">
+                        <img src="{% static 'images/about-2.jpg' %}" alt="">
+                    </div>
+                    <img src="{% static 'images/about-3.jpg' %}" id="imgab3" alt="">
+                </div>
+            </div>
+            <div class="second-section">
+                <div class="second-head">
+                    <h3>INSURANCE SERVICES</h3>
+                    <h1 style="font-weight: 600;">Take The Worry Out Of Life With Insurance Protection</h1>
+                </div>
+                <div class="second-image-cards">
+                    <div class="second-image">
+                        <img src="{% static 'images/services-2.jpg' %}" alt="">
+                        <div class="card-details">
+                            <div class="h3">
+                                <h3 style="color: white; font-size: 14px; font-weight: 400;">INSURANCE</h3>
+                                <div class="dot"></div>
+                                <h3 style="color:white;font-size: 14px; font-weight: 400;">TERM LIFE</h3>
+                            </div>
+                           <h1 style="font-size:22px ; color:white;margin-top: 6px;font-weight: 500;">Home Insurance</h1>
+                        </div>
+                    </div>
+                    <div class="second-image">
+                        <img src="{% static 'images/services-3.jpg' %}" alt="">
+                        <div class="card-details">
+                            <div class="h3">
+                                <h3 style="color: white; font-size: 14px; font-weight: 400;">INSURANCE</h3>
+                                <div class="dot"></div>
+                                <h3 style="color:white;font-size: 14px; font-weight: 400;">HEALTH</h3>
+                            </div>
+                           <h1 style="font-size:22px ; color:white;margin-top: 6px;font-weight: 500;">Health Insurance</h1>
+                        </div>
+                    </div>
+                    <div class="second-image">
+                        <img src="{% static 'images/services-5.jpg' %}" alt="">
+                        <div class="card-details">
+                            <div class="h3">
+                                <h3 style="color: white; font-size: 14px; font-weight: 400;">INSURANCE</h3>
+                                <div class="dot"></div>
+                                <h3 style="color:white;font-size: 14px; font-weight: 400;">VEHICLE</h3>
+                            </div>
+                           <h1 style="font-size:22px ; color:white;margin-top: 6px;font-weight: 500;">Car Insurance</h1>
+                        </div>
+                    </div>
+                </div>
+                <p style="color: var(--gray-500);font-size:15px;font-weight:400;margin-top: 35px;margin-bottom: 8px;">All policies are protected by our real-time fraud detection engine with zero extra cost.</p>
+                <p style="color: var(--primary);font-size:15px;font-weight:600;cursor:pointer;"><b>View All Services &rarr;</b></p>
+            </div>
+            <div class="third-section">
+                <div class="third-image">
+                    <img src="{% static 'images/choose-us-img.jpg' %}" alt="">
+                </div>
+                <div class="third-head">
+                    <div class="third-head1">
+                        <h3>WHY CHOOSE US</h3>
+                    <h1 style="margin-bottom: 28px;font-weight: 800;">Our Company Has Been Working Very Faithfully</h1>
+                    <p>We combine cutting-edge AI with blockchain-secured records to deliver the most transparent, fast, and reliable fraud detection system in the insurance industry.</p>
+                    </div>
+                    <div class="third">
+                        <div class="third1">
+                            <button><i class="fa-solid fa-check-double" style="color: #1d4ed8;"></i>&nbsp&nbsp Protective Protection</button>
+                            <button><i class="fa-solid fa-check-double" style="color: #1d4ed8;"></i>&nbsp&nbsp Homeowner insurance</button>
+                            <button><i class="fa-solid fa-check-double" style="color: #1d4ed8;"></i>&nbsp&nbsp Consultations</button>
+                        </div>
+                        <div class="third2">
+                            <button><i class="fa-solid fa-check-double" style="color: #1d4ed8;"></i>&nbsp&nbsp Money Back Guarantee</button>
+                            <button><i class="fa-solid fa-check-double" style="color: #1d4ed8;"></i>&nbsp&nbsp Partnership System</button>
+                            <button><i class="fa-solid fa-check-double" style="color: #1d4ed8;"></i>&nbsp&nbsp Safety Ensure</button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+            <div class="last-section">
+                <div class="last-head">
+                    <h3>EXPERT TEAM</h3>
+                    <h1 style="font-weight: 600;">Meet Our Team Expert & Experience Members</h1>
+                </div>
+                <div class="lastcards">
+                    <div class="last-card">
+                        <div class="card-image">
+                            <img src="{% static 'images/team-1.jpg' %}" alt="Mesiva Sccot">
+                            <div class="card-overlay">
+                                <h1>Mesiva Sccot</h1>
+                                <p>Marketing Expert</p>
+                                <div class="social-links">
+                                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="last-card">
+                        <div class="card-image">
+                            <img src="{% static 'images/team-2.jpg' %}" alt="Jeson Thomson">
+                            <div class="card-overlay">
+                                <h1>Jeson Thomson</h1>
+                                <p>Marketing Expert</p>
+                                <div class="social-links">
+                                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="last-card">
+                        <div class="card-image">
+                            <img src="{% static 'images/team-3.jpg' %}" alt="Kohn Wright">
+                            <div class="card-overlay">
+                                <h1>Kohn Wright</h1>
+                                <p>Marketing Expert</p>
+                                <div class="social-links">
+                                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="last-card">
+                        <div class="card-image">
+                            <img src="{% static 'images/team-4.jpg' %}" alt="Andrew Schimke">
+                            <div class="card-overlay">
+                                <h1>Andrew Schimke</h1>
+                                <p>Marketing Expert</p>
+                                <div class="social-links">
+                                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+
+    </div>
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script>
+      function sendData(){
+          
+          var data = new FormData()
+    
+          data.append("username", document.querySelector('.userName').value)
+          data.append("password", document.querySelector('.password').value)
+    
+          
+    
+          data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+          
+          $.ajax({
+    
+              method:"POST",
+              url:'/checkLogin/',
+              processData:false,
+              contentType:false,
+              // MimeType:"multipart/form-data",
+              data:data,
+              success:function(res){
+                  localStorage.setItem("message",res.message)
+    
+                  if(res.message === 0){
+                      
+                      login(data)
+                      localStorage.setItem("username",document.querySelector('.userName').value)
+                      localStorage.setItem('password',document.querySelector('.password').value)
+                      // location.reload();
+                      
+                  }
+                  else{
+                      document.querySelector('.error').style.display = "flex"
+                      
+                  }
+                  
+    
+              }
+          })
+      }
+    
+      function login(data){
+    
+    
+          $.ajax({
+    
+              method:"POST",
+              url:'/login/',
+              processData:false,
+              contentType:false,
+              MimeType:"multipart/form-data",
+              data:data,
+              success:function(res){
+                  console.log("it worked :)")
+                  
+                  setTimeout(()=>{
+    
+                      location.reload();
+                  },1000)
+              }
+              })
+      }
+    
+      function signup(data){
+          console.log("888888888");
+          $.ajax({
+    
+              method:"POST",
+              url:'/register/',
+              processData:false,
+              contentType:false,
+              MimeType:"multipart/form-data",
+              data:data,
+              success:function(res){
+                  
+                  setTimeout(()=>{
+    
+                      location.reload();
+    
+                  },1000)
+              }
+              })
+    
+      }
+    
+      function checkSignup(){
+          var data = new FormData()
+    
+          data.append("username", document.querySelector('.username1').value)
+          data.append("email", document.querySelector('.email1').value)
+          data.append("password", document.querySelector('.password1').value)
+          data.append("phone", document.querySelector('.phone').value)
+          data.append("address", document.querySelector('.address').value)
+          data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+        //   var error = 0
+        //   var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        //   if (document.querySelector('.email1').value.match(validRegex)) {
+        //                       document.querySelector('.err2').style.display = "none"
+        //                     //   document.querySelector('.email1').style.border = "2px solid red"
+        //                       // alert("Valid email address!");
+        //                      error = 0
+        //                       console.log("");
+
+    
+        //                       document.querySelector('.email1').style.border = "1px solid rgb(228, 228, 228)"
+        //                   } else {
+        //                     document.querySelector('.email1').style.border = "2px solid red"
+        //                     error = 1
+                              
+    
+        //                   }
+          
+          $.ajax({
+    
+              method:"POST",
+              url:'/checkSignup/',
+              processData:false,
+              contentType:false,
+              // MimeType:"multipart/form-data",
+              data:data,
+              success:function(res){
+                  // localStorage.setItem("message",res.message)
+    
+                  if(res.message === 0){
+                      
+    
+                          // alert("Valid email address!");
+                          
+                          
+    
+                          if (document.querySelector('.username1').value == "") {
+    
+    // alert("Valid email address!");
+                          error = 1
+                          document.querySelector('.username1').style.border = "2px solid red"
+                          document.querySelector('.err2').style.display = "none"
+    
+    
+                          } else {
+                            document.querySelector('.username1').style.border = "1px solid rgb(228, 228, 228)"
+                              console.log("");
+                              error = 0
+    
+                          }
+                          var ph = document.querySelector('.phone').value.toString()
+                          if (document.querySelector('.phone').value == "") {
+    
+    // alert("Valid email address!");
+                          error = 1
+                          document.querySelector('.phone').style.border = "2px solid red"
+                          document.querySelector('.err2').style.display = "none"
+    
+    
+                          } else {
+                            document.querySelector('.phone').style.border = "1px solid rgb(228, 228, 228)"
+                              console.log("");
+                              error = 0
+    
+                          }
+
+                          if(ph.length <10 || ph.length >10){
+                            error = 1
+                            document.querySelector('.phone').style.border = "2px solid red"
+                            alert("Please enter a 10 digit phone number")
+                          }
+                          else{
+                            document.querySelector('.phone').style.border = "1px solid rgb(228, 228, 228)"
+                            error = 0
+                          }
+    
+                          if (document.querySelector('.address').value == "") {
+    
+    // alert("Valid email address!");
+                          error = 1
+                          document.querySelector('.address').style.border = "2px solid red"
+                          document.querySelector('.err2').style.display = "none"
+    
+    
+                          } else {
+                            document.querySelector('.address').style.border = "1px solid rgb(228, 228, 228)"
+                              console.log("");
+                              error = 0
+    
+                          }
+
+                          var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    
+                          if (document.querySelector('.email1').value.match(validRegex)) {
+                              document.querySelector('.err2').style.display = "none"
+                            //   document.querySelector('.email1').style.border = "2px solid red"
+                              // alert("Valid email address!");
+                              error = 0
+                              console.log("");
+
+    
+                              document.querySelector('.email1').style.border = "1px solid rgb(228, 228, 228)"
+                          } else {
+                            document.querySelector('.email1').style.border = "2px solid red"
+                            error = 1
+                              
+    
+                          }
+
+                          var pas = 0
+    
+                          if (document.querySelector('.password1').value == "" ) {
+    
+                              alert("please fill the password!");
+                              document.querySelector('.password1').style.border = "2px solid red"
+                              pas = 1
+                              } 
+                              
+                              else if(document.querySelector('.password1').value.length < 7){
+    
+                              alert("password length must be greater than 7");
+                              document.querySelector('.password1').style.border = "2px solid red"
+                              pas = 1
+    
+    
+                              }
+    
+                              else{
+                                document.querySelector('.password1').style.border = "1px solid rgb(228, 228, 228)"
+                                pas = 0
+                                  
+                              }
+    
+                              
+                          
+    
+                      
+                      
+                      // localStorage.setItem("username",document.querySelector('.username').value)
+                      // localStorage.setItem('password',document.querySelector('.password').value)
+                      // location.reload();
+                      
+                  }
+                  else{
+                      
+    
+                      document.querySelector('.err2').style.display = "flex"
+    
+                  }
+
+                  
+    
+                  if(error == 0 && pas == 0){
+                                  signup(data)
+                              }
+                  
+    
+              }
+          })
+      }
+    
+      function showUpload(){
+        document.querySelector('.upload-bill').style.display = "flex"
+        document.querySelector('.body').style.overflowY = "hidden"
+      }
+
+      function closeUpload(){
+        document.querySelector('.upload-bill').style.display = "none"
+        document.querySelector('.body').style.overflowY = "scroll"
+      }
+
+      function closeView(){
+        document.querySelector('.view-bill').style.display = "none"
+        document.querySelector('.body').style.overflowY = "scroll"
+      }
+
+      function checkUsernameBill(element){
+        var data = new FormData()
+
+            data.append("username", element.value)
+            data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+            $.ajax({
+
+                method:"POST",
+                url:'/checkSignup/',
+                processData:false,
+                contentType:false,
+                MimeType:"multipart/form-data",
+                data:data,
+                success:function(res){
+
+                    
+                    if(res.message == "0"){
+                        document.querySelector('.err3').style.display = "flex"
+                        // error = 1
+                        // document.querySelector('.check').value = ""
+                        document.querySelector('.submit').style.opacity = "0.5"
+                        document.querySelector('.submit').style.pointerEvents = "none"
+                        
+                    }
+                    else{
+                        document.querySelector('.err3').style.display = "none"
+                        // document.querySelector('.check').value = "1"
+                        document.querySelector('.submit').style.opacity = "1"
+                        document.querySelector('.submit').style.pointerEvents = "all"
+                        // error = 0
+                    }
+
+                }
+                })
+      }
+      
+      function ipn(element){
+        var data = new FormData()
+
+            data.append("ipn", element.value)
+            data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+            $.ajax({
+
+                method:"POST",
+                url:'/checkipn/',
+                processData:false,
+                contentType:false,
+                MimeType:"multipart/form-data",
+                data:data,
+                success:function(res){
+
+                    
+                    if(res.message == "1"){
+                        document.querySelector('.err4').style.display = "flex"
+                        // error = 1
+                        // document.querySelector('.check').value = ""
+                        document.querySelector('.submit').style.opacity = "0.5"
+                        document.querySelector('.submit').style.pointerEvents = "none"
+                        
+                    }
+                    else{
+                        document.querySelector('.err4').style.display = "none"
+                        // document.querySelector('.check').value = "1"
+                        document.querySelector('.submit').style.opacity = "1"
+                        document.querySelector('.submit').style.pointerEvents = "all"
+                        // error = 0
+                    }
+
+                }
+                })
+      }
+
+      function insname(element){
+        var data = new FormData()
+
+            data.append("username", element.value)
+            data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+            $.ajax({
+
+                method:"POST",
+                url:'/checkname/',
+                processData:false,
+                contentType:false,
+                MimeType:"multipart/form-data",
+                data:data,
+                success:function(res){
+
+                    
+                    if(res.message == "0"){
+                        document.querySelector('.err5').style.display = "flex"
+                        // error = 1
+                        // document.querySelector('.check').value = ""
+                        document.querySelector('.submit').style.opacity = "0.5"
+                        document.querySelector('.submit').style.pointerEvents = "none"
+                        
+                    }
+                    else{
+                        document.querySelector('.err5').style.display = "none"
+                        // document.querySelector('.check').value = "1"
+                        document.querySelector('.submit').style.opacity = "1"
+                        document.querySelector('.submit').style.pointerEvents = "all"
+                        // error = 0
+                    }
+
+                }
+                })
+      }
+      
+      function search(){
+        var data = new FormData()
+    
+          data.append("bill", document.querySelector('.search').value)
+       
+    
+          
+    
+          data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+          
+          $.ajax({
+    
+    method:"POST",
+    url:'/getBill/',
+    processData:false,
+    contentType:false,
+    // MimeType:"multipart/form-data",
+    data:data,
+    success:function(res){
+         if(res.found == "1"){
+          document.querySelector('.body').style.overflowY = "hidden"
+        document.querySelector('.view-bill').style.display = "flex"
+        document.querySelector('.name').value = res.name
+        document.querySelector('.ua').value = res.address
+        document.querySelector('.ud').value = res.date
+        document.querySelector('.ipn').value = res.ipn
+        document.querySelector('.det').innerText = res.ipn + " Medical Bill details"
+        document.querySelector('.pn').value = res.InsName
+        document.querySelector('.pa').value = res.InsAdd
+        document.querySelector('.npi').value = "NPI :"+res.Npi
+        document.querySelector('.td').value = res.serviceDate
+        document.querySelector('.tdesc').value = res.desc
+        document.querySelector('.pd').value = res.pcode
+        document.querySelector('.dc').value = res.dcode
+        document.querySelector('.ch').value = res.charge
+        document.querySelector('.due').placeholder ="Due Amount : " + res.amount
+        document.querySelector('.due').value =res.amount
+        document.querySelector('.pk').value = res.pk
+        document.querySelector('.insAmtDisp').placeholder = "Claimed Insurance Amount : " + res.insAmt
+
+        if (res.insAmt == "0"){
+          try{
+              document.querySelector('.insAmtInpt').style.display = "flex"
+
+              document.querySelector('.insAmtDisp').style.display = "none"
+          }
+          catch{
+              console.log("err");
+          }
+        }
+        else{
+          try{
+
+              document.querySelector('.insAmtInpt').style.display = "none"
+          }
+          catch{
+              
+          }
+          
+          document.querySelector('.insAmtDisp').style.display = "flex"
+          document.querySelector('.insAmtDisp').placeholder = "Claimed Insurance Amount : " + res.insAmt
+        }
+      }
+      else{
+          alert("Medical Bill Not Found")
+      }
+
+      if(res.claimed){
+          try{
+
+              document.querySelector('.claim').style.display = "none"
+          }
+          catch{
+
+          }
+          document.querySelector('.approve').style.display = "none"
+      }
+      else{
+          document.querySelector('.claim').style.display = "flex"
+          document.querySelector('.approve').style.display = "flex"
+          document.querySelector('.claim').style.justifyContent = "center"
+      }
+
+      console.log(typeof(res.requested));
+
+      if(res.requested){
+          document.querySelector('.claim').style.pointerEvents = "none"
+          document.querySelector('.claim').value = "Request sent"
+          document.querySelector('.claim').style.textAlign = "center"
+          console.log("true");
+      }
+      else{
+          console.log("true11");
+          document.querySelector('.claim').style.pointerEvents = "all"
+          document.querySelector('.claim').style.textAlign = "center"
+          document.querySelector('.claim').value = "Claim insurance"
+
+      }
+
+                
+              }
+          })
+      }
+
+      function viewBill(element){
+        var data = new FormData()
+    
+          data.append("bill", element)
+       
+    
+          
+    
+          data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+          
+          $.ajax({
+    
+              method:"POST",
+              url:'/getBill/',
+              processData:false,
+              contentType:false,
+              // MimeType:"multipart/form-data",
+              data:data,
+              success:function(res){
+                   if(res.found == "1"){
+                    document.querySelector('.body').style.overflowY = "hidden"
+                  document.querySelector('.view-bill').style.display = "flex"
+                  document.querySelector('.name').value = res.name
+                  document.querySelector('.ua').value = res.address
+                  document.querySelector('.ud').value = res.date
+                  document.querySelector('.ipn').value = res.ipn
+                  document.querySelector('.det').innerText = res.ipn + " Medical Bill details"
+                  document.querySelector('.pn').value = res.InsName
+                  document.querySelector('.pa').value = res.InsAdd
+                  document.querySelector('.npi').value = "NPI :"+res.Npi
+                  document.querySelector('.td').value = res.serviceDate
+                  document.querySelector('.tdesc').value = res.desc
+                  document.querySelector('.pd').value = res.pcode
+                  document.querySelector('.dc').value = res.dcode
+                  document.querySelector('.ch').value = res.charge
+                  document.querySelector('.due').placeholder ="Due Amount : " + res.amount
+                  document.querySelector('.due').value =res.amount
+                  document.querySelector('.pk').value = res.pk
+                  document.querySelector('.insAmtDisp').placeholder = "Claimed Insurance Amount : " + res.insAmt
+
+                  if (res.insAmt == "0"){
+                    try{
+                        document.querySelector('.insAmtInpt').style.display = "flex"
+
+                        document.querySelector('.insAmtDisp').style.display = "none"
+                    }
+                    catch{
+                        console.log("err");
+                    }
+                  }
+                  else{
+                    try{
+
+                        document.querySelector('.insAmtInpt').style.display = "none"
+                    }
+                    catch{
+                        
+                    }
+                    
+                    document.querySelector('.insAmtDisp').style.display = "flex"
+                    document.querySelector('.insAmtDisp').placeholder = "Claimed Insurance Amount : " + res.insAmt
+                  }
+                }
+                else{
+                    alert("Medical Bill Not Found")
+                }
+
+                if(res.claimed){
+                    try{
+
+                        document.querySelector('.claim').style.display = "none"
+                    }
+                    catch{
+
+                    }
+                    document.querySelector('.approve').style.display = "none"
+                }
+                else{
+                    document.querySelector('.claim').style.display = "flex"
+                    document.querySelector('.approve').style.display = "flex"
+                    document.querySelector('.claim').style.justifyContent = "center"
+                }
+
+                console.log(typeof(res.requested));
+
+                if(res.requested){
+                    document.querySelector('.claim').style.pointerEvents = "none"
+                    document.querySelector('.claim').value = "Request sent"
+                    document.querySelector('.claim').style.textAlign = "center"
+                    console.log("true");
+                }
+                else{
+                    console.log("true11");
+                    document.querySelector('.claim').style.pointerEvents = "all"
+                    document.querySelector('.claim').style.textAlign = "center"
+                    document.querySelector('.claim').value = "Claim insurance"
+
+                }
+
+                
+              }
+          })
+      }
+
+      function search2(element){
+        var data = new FormData()
+    
+          data.append("bill", element.querySelector('.billVal').value)
+       
+    
+          
+    
+          data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+          
+          $.ajax({
+    
+              method:"POST",
+              url:'/getBill/',
+              processData:false,
+              contentType:false,
+              // MimeType:"multipart/form-data",
+              data:data,
+              success:function(res){
+                   if(res.found == "1"){
+                    document.querySelector('.body').style.overflowY = "hidden"
+                  document.querySelector('.view-bill').style.display = "flex"
+                  document.querySelector('.name').value = res.name
+                  document.querySelector('.ua').value = res.address
+                  document.querySelector('.ud').value = res.date
+                  document.querySelector('.ipn').value = res.ipn
+                  document.querySelector('.det').innerText = res.ipn + " Medical Bill details"
+                  document.querySelector('.pn').value = res.InsName
+                  document.querySelector('.pa').value = res.InsAdd
+                  document.querySelector('.npi').value = "NPI :"+res.Npi
+                  document.querySelector('.td').value = res.serviceDate
+                  document.querySelector('.tdesc').value = res.desc
+                  document.querySelector('.pd').value = res.pcode
+                  document.querySelector('.dc').value = res.dcode
+                  document.querySelector('.ch').value = res.charge
+                  document.querySelector('.due').placeholder ="Due Amount : " + res.amount
+                  document.querySelector('.due').value =res.amount
+                  document.querySelector('.pk').value = res.pk
+                  document.querySelector('.insAmtDisp').placeholder = "Claimed Insurance Amount : " + res.insAmt
+
+                  if (res.insAmt == "0"){
+                    try{
+                        document.querySelector('.insAmtInpt').style.display = "flex"
+
+                        document.querySelector('.insAmtDisp').style.display = "none"
+                    }
+                    catch{
+                        console.log("err");
+                    }
+                  }
+                  else{
+                    try{
+
+                    document.querySelector('.insAmtInpt').style.display = "none"
+                    document.querySelector('.approve').style.display = "none"
+                    }
+                    catch{
+
+                    }
+                    document.querySelector('.insAmtDisp').style.display = "flex"
+                    document.querySelector('.insAmtDisp').placeholder = "Claimed Insurance Amount : " + res.insAmt
+                  }
+                }
+                else{
+                    alert("Medical Bill Not Found")
+                }
+
+                if(res.claimed){
+                    document.querySelector('.claim').style.display = "none"
+                }
+                else{
+                    console.log("claimed");
+                    document.querySelector('.claim').style.display = "flex"
+                    document.querySelector('.claim').style.justifyContent = "center"
+                }
+
+                console.log(typeof(res.requested));
+
+                if(res.requested){
+                    document.querySelector('.claim').style.pointerEvents = "none"
+                    document.querySelector('.claim').value = "Request sent"
+                    document.querySelector('.claim').style.textAlign = "center"
+                    console.log("true");
+                }
+                else{
+                    console.log("true11");
+                    document.querySelector('.claim').style.pointerEvents = "all"
+                    document.querySelector('.claim').style.textAlign = "center"
+                    document.querySelector('.claim').value = "Claim insurance"
+
+                }
+
+                
+              }
+          })
+      }
+      
+
+      function checkUsername(){
+        var data = new FormData()
+
+            data.append("username", document.querySelector('.username').value)
+            data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+            $.ajax({
+
+                method:"POST",
+                url:'/checkSignup/',
+                processData:false,
+                contentType:false,
+                MimeType:"multipart/form-data",
+                data:data,
+                success:function(res){
+
+                    
+                    if(res.message == "1"){
+                        document.querySelector('.err2').style.display = "flex"
+                        error = 1
+                        // document.querySelector('.check').value = ""
+                        // document.querySelector('.next').style.opacity = "0.5"
+                        // document.querySelector('.next').style.pointerEvents = "none"
+                        
+                    }
+                    else{
+                        document.querySelector('.err2').style.display = "none"
+                        // document.querySelector('.check').value = "1"
+                        error = 0
+                    }
+
+                }
+                })
+      }
+
+      function scrollAbout(){
+        document.querySelector('.abt').scrollIntoView()
+      }
+
+      function showCreatePolicy(){
+        document.querySelector('.policy').style.display = "flex"
+      }
+      function closePolicy(){
+        document.querySelector('.policy').style.display = "none"
+      }
+
+      function setProfilePic(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // document.querySelector('.profile-pic').style.display = "flex"
+            // document.querySelector('.profile-pic-name').textContent = input.value.replace("C:\\fakepath\\","")
+            $('.profile-pic')
+                .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    
+
+
+}
+function showNotifications(){
+        document.querySelector('.notifications').style.display = "block"
+    }
+    function closeNotifications(){
+        document.querySelector('.notifications').style.display = "none"
+    }
+    function showHospitals(){
+        document.querySelector('.hospitals').style.display = "block"
+        document.querySelector('.body').style.overflowY = "hidden"
+    }
+    function closeHospitals(){
+        document.querySelector('.hospitals').style.display = "none"
+        document.querySelector('.body').style.overflowY = "scroll"
+    }
+
+    function claim(){
+        var data = new FormData()
+
+            data.append("ipn", document.querySelector('.ipn').value)
+            data.append("csrfmiddlewaretoken",'{{ csrf_token }}')
+            $.ajax({
+
+                method:"POST",
+                url:'/claim/',
+                processData:false,
+                contentType:false,
+                MimeType:"multipart/form-data",
+                data:data,
+                success:function(res){
+
+                    document.querySelector('.claim').value = "Request sent"
+                    
+
+                }
+                })
+    }
+
+    function showBills(){
+        document.querySelector('.bills').style.display = "flex"
+        document.querySelector('.body').style.overflowY = "hidden"
+    }
+
+    function closeBill(){
+        document.querySelector('.bills').style.display = "none"
+        document.querySelector('.body').style.overflowY = "scroll"
+    }
+
+    </script>
+    <script>
+      // ---- Fraud Check ----
+      function showFraudCheck() {
+          document.getElementById('fraudWrapper').style.display = 'flex';
+          document.querySelector('.body').style.overflowY = 'hidden';
+      }
+      function closeFraudCheck() {
+          document.getElementById('fraudWrapper').style.display = 'none';
+          document.getElementById('fraudIpn').value = '';
+          document.getElementById('fraudCharge').value = '';
+          document.getElementById('fraudTotalDue').value = '';
+          document.querySelector('.body').style.overflowY = 'scroll';
+      }
+      function submitFraudCheck() {
+          var ipn      = document.getElementById('fraudIpn').value.trim();
+          var charge   = document.getElementById('fraudCharge').value.trim();
+          var totalDue = document.getElementById('fraudTotalDue').value.trim();
+          if (!ipn || !charge || !totalDue) {
+              alert('Please fill in all three fields: IPN, Charge, and Total Due.');
+              return;
+          }
+          var btn = document.getElementById('fraudSubmitBtn');
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Verifying...';
+          btn.disabled = true;
+          $.ajax({
+              method: 'POST', url: '/checkFraud/',
+              data: { ipn: ipn, charge: charge, 'total-due': totalDue, csrfmiddlewaretoken: '{{ csrf_token }}' },
+              success: function(res) {
+                  btn.innerHTML = '<i class="fa-solid fa-magnifying-glass-chart"></i>&nbsp; Verify Bill';
+                  btn.disabled = false;
+                  showFraudResult(res);
+              },
+              error: function() {
+                  btn.innerHTML = '<i class="fa-solid fa-magnifying-glass-chart"></i>&nbsp; Verify Bill';
+                  btn.disabled = false;
+                  alert('Error connecting to fraud detection service.');
+              }
+          });
+      }
+      function showFraudResult(res) {
+          document.getElementById('fraudResultOverlay').style.display = 'flex';
+          var icon  = document.getElementById('fraudResultIcon');
+          var title = document.getElementById('fraudResultTitle');
+          var msg   = document.getElementById('fraudResultMsg');
+          if (res.error) {
+              icon.innerHTML  = '<i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b"></i>';
+              title.textContent = 'Not Found';
+              title.style.color = '#f59e0b';
+              msg.textContent = res.error;
+          } else if (res.genuine === true) {
+              icon.innerHTML  = '<i class="fa-solid fa-shield-check" style="color:#10b981"></i>';
+              title.textContent = 'GENUINE BILL';
+              title.style.color = '#10b981';
+              msg.innerHTML = 'This medical bill is <strong>authentic</strong>. The submitted details match the original blockchain record exactly.<br><br><small style="color:#94a3b8;">IPN: ' + (res.ipn || '') + '</small>';
+          } else {
+              icon.innerHTML  = '<i class="fa-solid fa-skull-crossbones" style="color:#ef4444"></i>';
+              title.textContent = 'FRAUDULENT BILL';
+              title.style.color = '#ef4444';
+              msg.innerHTML = 'WARNING: The submitted bill details do <strong>NOT</strong> match the original blockchain record. This bill may have been tampered with.<br><br><small style="color:#94a3b8;">IPN: ' + (res.ipn || 'N/A') + '</small>';
+          }
+      }
+      function closeFraudResult() {
+          document.getElementById('fraudResultOverlay').style.display = 'none';
+      }
+
+      // ---- Download bill popup as image ----
+      function downloadBill() {
+          var form = document.querySelector('.view-bill form');
+          html2canvas(form, { scale: 2, backgroundColor: '#ffffff', useCORS: true }).then(function(canvas) {
+              var link = document.createElement('a');
+              link.download = 'medical-bill-' + (document.querySelector('.ipn').value || 'bill') + '.png';
+              link.href = canvas.toDataURL('image/png');
+              link.click();
+          });
+      }
+    </script>
+    <script>
+        // Page loader - minimum 1.5 seconds
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('page-loader');
+            setTimeout(function() {
+                loader.classList.add('loader-hidden');
+                loader.addEventListener('transitionend', () => loader.remove());
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

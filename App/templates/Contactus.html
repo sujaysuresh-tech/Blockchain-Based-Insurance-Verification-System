@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/Contactus.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+    <title>Contact us</title>
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href=""> <img src="{% static 'images/LOGO1.png' %}" alt=""></a>
+            <div class="nav-link">
+                <ul>
+                    <li><a href="{% url 'homepage' %}">HOME</a></li>
+                    <!-- <li><a href="">ABOUT</a></li> -->
+                    <!-- <li><a href="">INSURANCE</a></li> -->
+                    <!-- <li><a href="">CONTACT US</a></li> -->
+                    <li><a href="{% url 'policies' %}">POLICY</a></li>
+                </ul>
+            </div>
+            <!-- <button onclick="">Login</button> -->
+        </nav>
+        <div class="text-box">
+            <h1>CONTACT US</h1>
+            <p>Customer Service at Your Fingertips: Contact Us for Quick and <br> Efficient Assistance</p>
+            <a href="" class="hero-btn">+91 7025102515</a>
+        </div>
+    </section>
+    
+    <section class="footer" style="background-color: #161616;">
+        <h3 style="color: white;font-weight: 600;text-transform: uppercase;">Thanks for using our website 😀</h3>
+    </section>
+</body>
+</html>
